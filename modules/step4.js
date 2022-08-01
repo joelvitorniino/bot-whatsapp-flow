@@ -1,31 +1,32 @@
-const { setNextStep, removeLastItemToCart } = require('../fetch');
+const { setNextStep, setDataSubmit } = require('../fetch');
 const messages = require('./messages');
-
-const options = {
-    1: async (client, message) => {
-        const { from } = message;
-        await setNextStep('s5', from);
-        await client.sendText(from, messages.whatElse());
-        console.log("Mensagem enviada");
-    },
-    2: async (client, message) => {
-        const { from } = message;
-        await removeLastItemToCart(from);
-        await setNextStep('s3', from);
-        await client.sendText(from, messages.whatIsproductId());
-        console.log("Mensagem enviada");
-    }
-}
 
 module.exports = async (client, message) => {
     const { from, body } = message;
 
-    if (options[body]) {
-        await options[body](client, message);
-    } else {
-        await client.sendText(from, messages.invalidOption());
-        await setNextStep('s2', from);
+    if (body === "0" || body === "*0*" || body.toLowerCase() === "voltar") {
+        await client.sendText(from, messages.reinitSubmit());
+        await setNextStep('s1', from);
         await client.sendText(from, messages.howCanIHelp());
+        return console.log("Mensagem enviada");
     }
-    return;
+
+    const emailRegex = /\S+@\S+\.\S+/;
+
+    const emailValid = emailRegex.test(body);
+
+    if (!emailValid) {
+        await setNextStep('s4', from);
+        await client.sendText(from, messages.emailInvalid());
+        return console.log("Mensagem enviada");
+    }
+
+    const setData = await setDataSubmit(from, "email", body);
+    if (setData.error) {
+        await client.sendText(from, setData.message.text);
+        return console.log("Mensagem enviada");
+    }
+    await client.sendText(from, messages.phoneSubmit());
+    await setNextStep('s5', from);
+    console.log("Mensagem enviada");
 }

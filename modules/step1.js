@@ -1,16 +1,32 @@
 const path = require('path');
-const { setNextStep, getUserByEmail, alterData } = require('../fetch');
+const { setNextStep, checkSubmit, startSubmit } = require('../fetch');
 const messages = require('./messages');
 
 const options = {
     1: async (client, message) => {
         const { from } = message;
         await client.sendText(from, messages.SimulatedDiscont());
-        await client.sendText(from, messages.howCanIHelp());
+        
         await setNextStep('s1', from);
         console.log("Mensagem enviada");
     },
     2: async (client, message) => {
+        const { from } = message;
+        const submitStatus = await checkSubmit(from);
+        if (!submitStatus) {
+            const submitRegister = await startSubmit(from);
+            if (!submitRegister) {
+                await setNextStep('s1', from);
+                await client.sendText(from, `Desculpe, não conseguimos cadastrar você. Tente novamente.`);
+                return await client.sendText(from, messages.howCanIHelp());
+            }
+        }
+        await client.sendText(from, messages.initSubmit());
+        await setNextStep('s3', from);
+        await client.sendText(from, messages.nameSubmit());
+        console.log("Mensagem enviada");
+    },
+    3: async (client, message) => {
         const { from } = message;
         const menu = path.resolve(__dirname, '../media/fatura.pdf');
         await client.sendFile(from, menu, "fatura.pdf", "Fatura");
@@ -18,7 +34,7 @@ const options = {
         await setNextStep('s1', from);
         console.log("Mensagem enviada");
     },
-    3: async (client, message) => {
+    4: async (client, message) => {
         const { from } = message;
         await client.sendText(from, messages.FAQ());
         await setNextStep('s2', from);

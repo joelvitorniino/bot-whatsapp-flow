@@ -18,8 +18,8 @@ module.exports = async (client, message) => {
     }
     
     if (number.length !== 11 && number.length !== 10) {
-        await setNextStep('s5', from);
-        await client.sendText(from, messages.phoneInvalid());
+        await setNextStep('s6', from);
+        await client.sendText(from, messages.cepInvalid());
         return console.log("Mensagem enviada");
     }
 
@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
         await client.sendText(from, setData.message.text);
         return console.log("Mensagem enviada");
     }
-    await client.sendText(from, messages.cepSubmit());
-    await setNextStep('s6', from);
+    await client.sendText(from, messages.ufSubmit());
+    await setNextStep('s7', from);
     console.log("Mensagem enviada");
 }

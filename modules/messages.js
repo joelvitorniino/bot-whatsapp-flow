@@ -5,17 +5,53 @@ module.exports = {
     FAQ: () => `*Perguntas frequentes*\nEscolha o número da opção que desejada:\n${FAQ}`,
     newFAQOption: () => `Caso tenha mais uma dúvida, use seus respectivos números acima (*1* a *13*) ou digite *0* para voltar ao menu.`,
     FAQOption: (option) => FAQOptions[option] || false,
-    invalidOption: (valids) => `Essa opção não é válida, experimente um dos números da mensagem que te mandei acima (${valids}) ou digite *0* para voltar ao menu e recomeçar.`
+    invalidOption: (valids) => `Essa opção não é válida, experimente um dos números da mensagem que te mandei acima (${valids}) ou digite *0* para voltar ao menu e recomeçar.`,
+    initSubmit: () => `Iniciando seu cadastro.\n\nVocê pode digitar *0* caso queira recomeçar a qualquer momento.`,
+    reinitSubmit: () => `Removi seu cadastro, vamos recomeçar.`,
+    nameSubmit: () => `Me informe, primeiramente, seu nome completo.`,
+    nameInvalid: () => `Nome completo inválido, tente novamente:`,
+    emailSubmit: () => `Ótimo, agora me informe seu e-mail.`,
+    emailInvalid: () => `E-mail inválido, tente novamente:`,
+    phoneSubmit: () => `Preciso de seu número de telefone, me informe um número ex: _11999888777_ ou caso queria usar esse que estou conversando com você digite *1*.`,
+    phoneInvalid: () => `Número de telefone inválido, lembre-se de seguir o ex: _11999888777_, tente novamente:`,
+    cepSubmit: () => `Agora me informe seu CEP do local de onde mora.`,
+    cepInvalid: () => `CEP inválido, lembre-se de utilizar o formato: 00000-000, tente novamente:`,
+    showWithCep: (data) => `Encontrei o seguinte endereço para o CEP\n${data}\nPodemos prosseguir assim?\n*1*: Sim\n*2*: Não`,
+    ufSubmit: () => `Agora me informe a sigla de seu estado.`,
+    ufInvalid: () => `Estado inválido, lembre-se de utilizar o formato: XX, tente novamente:`,
+    citySubmit: () => `Agora me informe sua cidade.`,
+    cityInvalid: () => `Cidade inválida, tente novamente:`,
+    neighborhoodSubmit: () => `Agora me informe seu bairro.`,
+    neighborhoodInvalid: () => `Bairro inválido, tente novamente:`,
+    streetSubmit: () => `Agora me informe sua rua.`,
+    streetInvalid: () => `Rua inválida, tente novamente:`,
+    person: () => `Você é pessoa Física ou Jurídica?\nEscolha o número da opção desejada:\n*1* - Pessoa Física\n*2* - Pessoa Jurídica\n\n*Caso seu cadastro seja em Pessoa Física, conta mínima de R$250,00.`,
+    personInvalid: () => `Essa opção não é válida, experimente um dos números da mensagem que te mandei acima (*1* ou *2*).`,
+    cpfSubmit: () => `Agora me informe seu CPF.`,
+    cpfInvalid: () => `CPF inválido, use o formato: XXX.XXX.XXX-XX, tente novamente:`,
+    cnpjSubmit: () => `Agora me informe seu CNPJ.`,
+    cnpjInvalid: () => `CNPJ inválido, use o formato: XX.XXX.XXX/XXXX-XX, tente novamente:`,
+    instalationNumber: () => `Agora me informe o número da instalação.`,
+    instalationNumberInvalid: () => `Número de instalação inválido, tente novamente:`,
+    energyDistributor: () => `Agora me diga qual o seu distribuidor de energia.`,
+    energyDistributorInvalid: () => `Distribuidor de energia inválido, tente novamente:`,
+    energyBillSubmit: () => `Agora me envie sua conta de energia, se for foto, verifique-se de que está legível.`,
+    energyBillInvalid: () => `Conta de energia inválida, preciso de um arquivo, foto ou PDF, tente novamente:`,
+    termsSubmit: () => `Agora preciso saber se está ciente da utilização dos seus dados para cadastro de acordo com a Lei de Proteção de Dados.\n*1*: Sim, estou ciente.\n*2*: Não, não estou ciente.`,
+    termsInvalid: () => `Essa opção não é válida, experimente um dos números da mensagem que te mandei acima (*1* ou *2*).`,
+    termsAccepted: () => `Obrigado por aceitar os termos de uso.`,
+    success: () => `*Cadastro realizado com sucesso!*\n\nAgora analisaremos a sua conta de luz e solicitaremos um documento com foto. Assim, verificaremos a melhor usina de geração sustentável para poder te atender!`,
 }
 
 const options = `Escolha o número da opção desejada:\n
 *1*: Simular desconto;
 *2*: Enviar conta PDF;
-*3*: Duvidas.
+*3*: Cadastrar-se;
+*4*: Duvidas.
 `
 
 const FAQ = `*1*: Quais são as vantagens na minha participação na fazenda solar?
-*2*: O que é o processo de "Compensação de Crédito"e como ele é usado?
+*2*: O que é o processo de "Compensação de Crédito" e como ele é usado?
 *3*: O que devo fazer para usufruir dos benefícios da fazendo solar?
 *4*: Quais são os requisitos para a adesão?
 *5*: Precisarei pagar algo para a realização da adesão, ou em alguma etapa, para começar a receber meu benefício?

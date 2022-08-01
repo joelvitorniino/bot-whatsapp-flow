@@ -52,3 +52,53 @@ async function getUser(id) {
         }
     });
 } exports.getUser = getUser;
+
+async function checkSubmit(id) {
+    return axios.get(`${baseUrlBotInfors}/submit/${id}`).then((res) => {
+        return res.data;
+    }).catch((err) => {
+        return handleError(err);
+    });
+} exports.checkSubmit = checkSubmit;
+
+async function startSubmit(id) {
+    const submit = {
+        id: id,
+        name: null,
+        email: null,
+        phone: null,
+        cep: null,
+        uf: null,
+        city: null,
+        neighborhood: null,
+        street: null,
+        person: null,
+        document: null,
+        instalationNumber: null,
+        energyDistributor: null,
+        electricityBillPath: null
+    }
+    return axios.post(`${baseUrlBotInfors}/submit`, submit).then((res) => {
+        console.log(`start: id -> ${id}`);
+        return true;
+    }).catch((err) => {
+        return handleError(err);
+    });
+} exports.startSubmit = startSubmit;
+
+async function setDataSubmit(id, data, value) {
+    return axios.patch(`${baseUrlBotInfors}/submit/${id}`, { [data]: value }).then((res) => {
+        console.log(`data saved: ${data} -> ${value}`);
+        return true;
+    }).catch((err) => {
+        return handleError(err);
+    });
+} exports.setDataSubmit = setDataSubmit;
+
+async function getCep(cep) {
+    return axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((res) => {
+        return res.data;
+    }).catch((err) => {
+        return handleError(err);
+    });
+} exports.getCep = getCep;

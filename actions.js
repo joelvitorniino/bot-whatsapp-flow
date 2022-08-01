@@ -1,4 +1,3 @@
-const axios = require("axios");
 const steps = require("./steps");
 const { getUser, submitNewUser } = require("./fetch");
 

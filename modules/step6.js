@@ -1,30 +1,63 @@
-const { setNextStep, getAddress } = require('../fetch');
+const { setNextStep, setDataSubmit, getCep } = require('../fetch');
 const messages = require('./messages');
-
-const options = {
-    1: async (client, message) => {
-        const { from } = message;
-        const address = await getAddress(from);
-        await setNextStep('s7', from);
-        await client.sendText(from, messages.confirmAddress(address, parseInt(Math.random() * 60)));
-    },
-    2: async (client, message) => {
-        const { from } = message;
-        await setNextStep('s5', from);
-        await client.sendText(from, messages.whatElse());
-        console.log("Mensagem enviada");
-    }
-}
 
 module.exports = async (client, message) => {
     const { from, body } = message;
 
-    if (options[body]) {
-        await options[body](client, message);
-    } else {
-        await client.sendText(from, messages.invalidOption());
-        await setNextStep('s5', from);
-        await client.sendText(from, messages.whatElse());
+    if (body === "0" || body === "*0*" || body.toLowerCase() === "voltar") {
+        await client.sendText(from, messages.reinitSubmit());
+        await setNextStep('s1', from);
+        await client.sendText(from, messages.howCanIHelp());
+        return console.log("Mensagem enviada");
     }
-    return;
+
+    const cepNumbers = body.replace(/[^0-9]/g, '');
+
+    if (cepNumbers.length !== 8) {
+        await setNextStep('s6', from);
+        await client.sendText(from, messages.cepInvalid());
+        return console.log("Mensagem enviada");
+    }
+
+    const cep = await getCep(cepNumbers);
+
+    if (cep.erro) {
+        await setNextStep('s6', from);
+        await client.sendText(from, messages.cepInvalid());
+        return console.log("Mensagem enviada");
+    }
+
+    const setData = await setDataSubmit(from, "cep", body);
+    if (setData.error) {
+        await client.sendText(from, setData.message.text);
+        return console.log("Mensagem enviada");
+    }
+
+    const uf = cep.uf;
+    const city = cep.localidade
+    const neighborhood = cep.bairro
+    const street = cep.logradouro
+
+    let stringToSend = '';
+
+    if (uf !== '') {
+        stringToSend += `Estado: ${uf}\n`;
+        await setDataSubmit(from, "uf", uf);
+    }
+    if (city !== '') {
+        stringToSend += `Cidade: ${city}\n`;
+        await setDataSubmit(from, "city", city);
+    }
+    if (neighborhood !== '') {
+        stringToSend += `Bairro: ${neighborhood}\n`;
+        await setDataSubmit(from, "neighborhood", neighborhood);
+    }
+    if (street !== '') {
+        stringToSend += `Rua: ${street}\n`;
+        await setDataSubmit(from, "street", street);
+    }
+
+    await client.sendText(from, messages.showWithCep());
+    await setNextStep('s7', from);
+    console.log("Mensagem enviada");
 }
