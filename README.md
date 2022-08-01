@@ -12,10 +12,10 @@
 
 ## Instalando bot
 ```bash
-git clone https://kaualandi@bitbucket.org/noclaftech/chatbot-restaurante.git
+git clone https://kaualandi@bitbucket.org/noclaftech/chatbot-prana-saq.git
 ```
 ```bash
-cd chatbot-restaurante
+cd chatbot-prana-saq
 ```
 ```bash
 npm install
