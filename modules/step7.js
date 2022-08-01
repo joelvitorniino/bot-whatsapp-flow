@@ -1,0 +1,30 @@
+const { setNextStep, finishCart } = require('../fetch');
+const messages = require('./messages');
+
+const options = {
+    1: async (client, message) => {
+        const { from } = message;
+        await finishCart(from);
+        await setNextStep('s0', from);
+        await client.sendText(from, messages.success());
+    },
+    2: async (client, message) => {
+        const { from } = message;
+        await setNextStep('s5', from);
+        await client.sendText(from, messages.whatElse());
+        console.log("Mensagem enviada");
+    }
+}
+
+module.exports = async (client, message) => {
+    const { from, body } = message;
+
+    if (options[body]) {
+        await options[body](client, message);
+    } else {
+        await client.sendText(from, messages.invalidOption());
+        await setNextStep('s5', from);
+        await client.sendText(from, messages.whatElse());
+    }
+    return;
+}
