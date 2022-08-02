@@ -7,7 +7,7 @@ const isMaintenanceMode = process.env.MAINTENANCE_MODE === "true";
 
 module.exports = msgHandler = async (client, message) => {
     try {
-        const { id, from, sender, isGroupMsg, chat, caption, isMedia, mimetype, quotedMsg } = message;
+        const { id, from, sender, isGroupMsg, chat, caption, isMedia, mimetype, type, quotedMsg } = message;
         let { body } = message;
         const { formattedTitle } = chat;
         let { pushname, verifiedName } = sender;
@@ -32,6 +32,7 @@ module.exports = msgHandler = async (client, message) => {
         if (isGroupMsg) {
             return console.log("\x1b[1;31mMENSSAGE GROUP. IGNORING\x1b[0m");
         }
+
 
         console.log("FROM 	===>", pushname);
         console.log("FROM_ID 	===>", chat.id);

@@ -11,18 +11,20 @@ module.exports = async (client, message) => {
         return console.log("Mensagem enviada");
     }
 
-    if (body.length !== 2) {
-        await setNextStep('s8', from);
-        await client.sendText(from, messages.ufInvalid());
+    const instalationNumber = body.replace(/[^0-9]/g, '');
+
+    if (!instalationNumber) {
+        await setNextStep('s15', from);
+        await client.sendText(from, messages.instalationNumberInvalid());
         return console.log("Mensagem enviada");
     }
 
-    const setData = await setDataSubmit(from, "uf", body);
+    const setData = await setDataSubmit(from, "instalationNumber", instalationNumber);
     if (setData.error) {
         await client.sendText(from, setData.message.text);
         return console.log("Mensagem enviada");
     }
-    await client.sendText(from, messages.citySubmit());
-    await setNextStep('s9', from);
+    await client.sendText(from, messages.energyDistributor());
+    await setNextStep('s16', from);
     console.log("Mensagem enviada");
 }

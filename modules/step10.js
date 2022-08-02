@@ -11,18 +11,18 @@ module.exports = async (client, message) => {
         return console.log("Mensagem enviada");
     }
 
-    if (body.length !== 2) {
-        await setNextStep('s8', from);
-        await client.sendText(from, messages.ufInvalid());
+    if (!body) {
+        await setNextStep('s10', from);
+        await client.sendText(from, messages.neighborhoodInvalid());
         return console.log("Mensagem enviada");
     }
 
-    const setData = await setDataSubmit(from, "uf", body);
+    const setData = await setDataSubmit(from, "neighborhood", body);
     if (setData.error) {
         await client.sendText(from, setData.message.text);
         return console.log("Mensagem enviada");
     }
-    await client.sendText(from, messages.citySubmit());
-    await setNextStep('s9', from);
+    await client.sendText(from, messages.streetSubmit());
+    await setNextStep('s11', from);
     console.log("Mensagem enviada");
 }

@@ -13,7 +13,7 @@ const options = {
     2: async (client, message) => {
         const { from } = message;
         const submitStatus = await checkSubmit(from);
-        if (!submitStatus) {
+        if (submitStatus.error) {
             const submitRegister = await startSubmit(from);
             if (!submitRegister) {
                 await setNextStep('s1', from);

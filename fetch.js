@@ -75,8 +75,7 @@ async function startSubmit(id) {
         person: null,
         document: null,
         instalationNumber: null,
-        energyDistributor: null,
-        electricityBillPath: null
+        energyDistributor: null
     }
     return axios.post(`${baseUrlBotInfors}/submit`, submit).then((res) => {
         console.log(`start: id -> ${id}`);

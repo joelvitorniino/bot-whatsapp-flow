@@ -57,7 +57,7 @@ module.exports = async (client, message) => {
         await setDataSubmit(from, "street", street);
     }
 
-    await client.sendText(from, messages.showWithCep());
+    await client.sendText(from, messages.showWithCep(stringToSend));
     await setNextStep('s7', from);
     console.log("Mensagem enviada");
 }

@@ -16,5 +16,21 @@
       "step": "s2"
     }
   ],
-  "submit": []
+  "submit": [
+    {
+      "id": "5521999222644@c.us",
+      "name": "Kauã Landi",
+      "email": "kaualandi@hotmail.com",
+      "phone": "21999222644",
+      "cep": "25970-568",
+      "uf": "RJ",
+      "city": "Teresópolis",
+      "neighborhood": "Caleme",
+      "street": "Servidão Primavera",
+      "person": "cpf",
+      "document": "12345612312",
+      "instalationNumber": "12345678",
+      "energyDistributor": "asdfghjk"
+    }
+  ]
 }

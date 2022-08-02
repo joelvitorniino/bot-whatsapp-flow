@@ -11,18 +11,20 @@ module.exports = async (client, message) => {
         return console.log("Mensagem enviada");
     }
 
-    if (body.length !== 2) {
-        await setNextStep('s8', from);
-        await client.sendText(from, messages.ufInvalid());
+    const cpfNumbers = body.replace(/[^0-9]/g, '');
+
+    if (cpfNumbers.length !== 11) {
+        await setNextStep('s13', from);
+        await client.sendText(from, messages.cpfInvalid());
         return console.log("Mensagem enviada");
     }
-
-    const setData = await setDataSubmit(from, "uf", body);
+    
+    const setData = await setDataSubmit(from, "document", cpfNumbers);
     if (setData.error) {
         await client.sendText(from, setData.message.text);
         return console.log("Mensagem enviada");
     }
-    await client.sendText(from, messages.citySubmit());
-    await setNextStep('s9', from);
+    await client.sendText(from, messages.instalationNumber());
+    await setNextStep('s15', from);
     console.log("Mensagem enviada");
 }
