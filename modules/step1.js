@@ -6,8 +6,8 @@ const options = {
     1: async (client, message) => {
         const { from } = message;
         await client.sendText(from, messages.SimulatedDiscont());
-        
         await setNextStep('s1', from);
+        await client.sendText(from, messages.howCanIHelp());
         console.log("Mensagem enviada");
     },
     2: async (client, message) => {
