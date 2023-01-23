@@ -1,36 +1,3 @@
 {
-  "users": [
-    {
-      "id": "5521999222644@c.us",
-      "name": "Kauã Landi",
-      "step": "s1"
-    },
-    {
-      "id": "5521973819817@c.us",
-      "name": "Matheus Falcão",
-      "step": "s1"
-    },
-    {
-      "id": "5511999441477@c.us",
-      "name": "Cristiano",
-      "step": "s2"
-    }
-  ],
-  "submit": [
-    {
-      "id": "5521999222644@c.us",
-      "name": "Kauã Landi",
-      "email": "kaualandi@hotmail.com",
-      "phone": "21999222644",
-      "cep": "25970-568",
-      "uf": "RJ",
-      "city": "Teresópolis",
-      "neighborhood": "Caleme",
-      "street": "Servidão Primavera",
-      "person": "cpf",
-      "document": "12345612312",
-      "instalationNumber": "12345678",
-      "energyDistributor": "asdfghjk"
-    }
-  ]
+  "users": []
 }

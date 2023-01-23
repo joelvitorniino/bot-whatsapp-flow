@@ -1,8 +1,10 @@
-module.exports = options = (headless, start) => {
-    const options = {
+import { Client, ConfigObject, NotificationLanguage } from "@open-wa/wa-automate"
+
+export default function options(headless: boolean, start: (client: Client) => Promise<Client>) {
+    const options: ConfigObject = {
         blockCrashLogs: false,
         disableSpins: false,
-        hostNotificationLang: 'PT_BR',
+        hostNotificationLang: NotificationLanguage.PTBR,
         logConsole: false,
         //popup: true,
 
@@ -13,7 +15,7 @@ module.exports = options = (headless, start) => {
         popup: 3012,
         multiDevice: true,
         defaultViewport: null,
-        sessionId: 'chatbot-prana',
+        sessionId: 'wa-bot-express',
         headless: headless,
         qrTimeout: 0,
         authTimeout: 60,

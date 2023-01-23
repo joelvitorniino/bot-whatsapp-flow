@@ -12,10 +12,10 @@
 
 ## Instalando bot
 ```bash
-git clone https://kaualandi@bitbucket.org/noclaftech/chatbot-prana-saq.git
+git clone https://github.com/kaualandi/bot-whatsapp.git
 ```
 ```bash
-cd chatbot-prana-saq
+cd bot-whatsapp
 ```
 ```bash
 npm install
@@ -24,21 +24,51 @@ npm install
 ## Variáveis de ambiente
 Você precisará de um arquivo `.env` parecido com esse:
 ```env
-USING=DEVELOPMENT ENVIRONMENT VARIABLES
-MAINTENANCE_MODE=
-BASEURL_BOTINFORS=
+USING=PRODUCTION ENVIRONMENT VARIABLES
+MAINTENANCE_MODE=false
+BASEURL_BOTINFORS=http://localhost:3200
+
+TOKEN_CONSULTAS=
+BASE_URL_CONSULTAS=
+
+ffmpegPath=/usr/bin/ffmpeg
 ```
-
 Basta agora preencher os dados:
-
 - **USING:** é figurativo, apenas se mostrará qual variável está sendo usada, no caso de ter duas.
 - **MAINTENANCE_MODE:** é um flag que indica se o bot está em modo de manutenção, se `true` ele responderá avisando seu estado e não fará mais nada.
 - **BASEURL_BOTINFORS:** se você não alterar o script server do `package.json` será por padrão `http://localhost:3004`. É essencial para o funcionamento do bot.
+- **ffmpegPath:** Diretório do ffmpeg, para baixar músicas com o comando `!yt`. Caso não tenha, veja como baixar [aqui](https://www.ffmpeg.org/download.html).
+
+Os demais são dados do cliente, sendo assim não são necessários preencher.
 
 ## Server
-> Eu disse acima da *BASEURL_SERVER*, pois bem, aqui vamos configura-lo.
+> Eu disse acima da *BASEURL_BOTINFORS*, pois bem, aqui vamos configura-lo.
+
+```bash
+cd server
+```
+
+Precisamos de um arquivo para armazenar todas as informações
+
+```bash
+touch db.json
+```
+
+Agora abra esse arquivo em seu editor de textos e cole o objeto abaixo
+
+```json
+{
+  "authorizations": []
+}
+```
 
 ### Ambiente de Desenvolvimento
+
+Caso não tenha o [json-server](https://www.npmjs.com/package/json-server) globalmente, o instale.
+
+```bash
+npm install -g json-server
+```
 
 Se estiver no ambiente de desenvolvimento, é só rodar o `npm run server` ou `npm run server:w`, caso queira no modo watch.
 
@@ -49,6 +79,8 @@ Dessa forma, caso queria alterar a porta, você encontrará no arquivo `package.
 Acredito que você não queria que o server fique ocupando uma instância do terminal. Devemos então prepará-lo para o [PM2](https://pm2.keymetrics.io/).
 
 > Não ensinarei aqui como configurar o [PM2](https://pm2.keymetrics.io/). Mas se quiser, você pode ver o [guia](https://pm2.keymetrics.io/docs/usage/quick-start/) para isso.
+
+Se ainda não estiver, entre na pasta do servidor
 
 ```bash
 cd server
@@ -75,7 +107,7 @@ cd ..
 npm start
 ```
 
-Escaneie o QR Code como se estivesse conectando ao whatsapp web e mande um `Olá` para o número que usou para escanear.
+Escaneie o QR Code como se estivesse conectando ao whatsapp web e mande um `!menu` para o número que usou para escanear.
 
 > Não se esqueça de verificar se o multidevices (Multiplos Dispositivos) está ativado em seu whatsapp.
 
@@ -83,3 +115,19 @@ Se quiser usar o pm2, execute:
 ```bash
 pm2 start index.js --name wabot-bot
 ```
+## Autor
+
+👤 **Kauã Landi**
+
+* Website: https://kaualf.com
+* Github: [@kaualandi](https://github.com/kaualandi)
+* LinkedIn: [@kaualandi](https://linkedin.com/in/kaualandi)
+* Instagram: [@kaua.landi](https://www.instagram.com/kaua.landi/)
+
+## 🤝 Contribuição
+
+Contribuições, problemas e solicitações de recursos são bem-vindos! <br/> Sinta-se à vontade para verificar a [página de problemas](https://github.com/kaualandi/bot-whatsapp/issues). Você também pode dar uma olhada na [página de contribuição](https://github.com/kaualandi/bot-whatsapp/pulls).
+
+## 🥰 Mostre seu apoio
+
+Dê uma ⭐️ se este projeto te ajudou!
